@@ -1,37 +1,55 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function GameControls({ onPlayAgain, onCpuTurn, showCpuButton = false, showPlayAgain = false, isProcessing = false, gameEnded = false }) {
   return (
-    <div className="flex justify-center gap-4 flex-wrap">
+    <div className="flex justify-center gap-6 flex-wrap">
       {showCpuButton && (
-        <button
+        <motion.button
+          whileHover={!isProcessing && !gameEnded ? { scale: 1.05, y: -3 } : {}}
+          whileTap={!isProcessing && !gameEnded ? { scale: 0.95 } : {}}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
           onClick={onCpuTurn}
           disabled={isProcessing || gameEnded}
           className={`
-            px-6 py-3 font-semibold rounded-lg
-            transition-colors duration-200
-            shadow-md hover:shadow-lg
+            relative px-8 py-4 font-bold rounded-xl text-lg overflow-hidden
+            transition-all duration-300 group
             ${isProcessing || gameEnded
-              ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-              : 'bg-green-500 text-white hover:bg-green-600 active:bg-green-700'
+              ? 'glass text-gray-500 cursor-not-allowed'
+              : 'glass-strong text-white hover:glow-blue cursor-pointer'
             }
           `}
         >
-          {isProcessing ? 'CPU Thinking...' : gameEnded ? 'Game Over' : 'CPU Turn'}
-        </button>
+          {!isProcessing && !gameEnded && (
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          )}
+          <span className="relative z-10">
+            {isProcessing ? '⏳ CPU Thinking...' : gameEnded ? '🏁 Game Over' : '🤖 CPU Turn'}
+          </span>
+        </motion.button>
       )}
       {showPlayAgain && (
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05, y: -3 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           onClick={onPlayAgain}
           className="
-            px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg
-            hover:bg-blue-600 active:bg-blue-700
-            transition-colors duration-200
-            shadow-md hover:shadow-lg
+            relative px-8 py-4 font-bold rounded-xl text-lg
+            glass-strong text-white hover:glow-purple
+            transition-all duration-300 overflow-hidden group
           "
         >
-          🔄 Play Again
-        </button>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <span className="relative z-10 flex items-center gap-2">
+            <span className="text-xl">🔄</span>
+            <span>Play Again</span>
+          </span>
+        </motion.button>
       )}
     </div>
   );

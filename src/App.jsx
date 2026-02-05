@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import GameBoard from './components/GameBoard';
 import GameControls from './components/GameControls';
 import BingoLetters from './components/BingoLetters';
@@ -359,179 +360,301 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-6xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">
+    <div className="min-h-screen mesh-gradient flex items-center justify-center p-4 sm:p-8">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="glass-card rounded-3xl shadow-2xl p-6 sm:p-10 max-w-7xl w-full"
+      >
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-4xl sm:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+        >
           🎯 5x5 Bingo Game
-        </h1>
+        </motion.h1>
         
         {/* Main Menu - Show when no mode selected */}
-        {!gameMode && (
-          <MainMenu currentMode={gameMode} onModeChange={handleModeChange} />
-        )}
+        <AnimatePresence mode="wait">
+          {!gameMode && (
+            <MainMenu currentMode={gameMode} onModeChange={handleModeChange} />
+          )}
+        </AnimatePresence>
 
         {/* Fun Bingo Mode */}
-        {gameMode === 'fun' && playerBoard && cpuBoard && (
-          <>
-            {/* Back to Menu Button */}
-            <div className="mb-4 flex justify-between items-center">
-              <button
-                onClick={() => setGameMode(null)}
-                className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                ← Back to Menu
-              </button>
-              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
-                Fun Bingo Mode
-              </h2>
-              <div className="w-32"></div>
-            </div>
+        <AnimatePresence mode="wait">
+          {gameMode === 'fun' && playerBoard && cpuBoard && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Back to Menu Button */}
+              <div className="mb-6 flex justify-between items-center">
+                <motion.button
+                  whileHover={{ scale: 1.05, x: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setGameMode(null)}
+                  className="px-6 py-3 glass-strong text-white font-semibold rounded-xl hover:glow-purple transition-all duration-300"
+                >
+                  ← Back to Menu
+                </motion.button>
+                <motion.h2 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+                >
+                  Fun Bingo Mode
+                </motion.h2>
+                <div className="w-24 sm:w-32"></div>
+              </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
-              {/* Player Board */}
-              <div>
-                <h2 className="text-2xl font-bold text-center mb-4 text-blue-600">
-                  Player Board
-                </h2>
-                <BingoLetters 
-                  completedLines={playerScore} 
-                  isWinner={winner === 'Player'}
-                  playerName="Player"
-                />
-                <div className="mt-4">
-                  <GameBoard 
-                    board={playerBoard} 
-                    onCellClick={handlePlayerBoardClick}
-                    disabled={!isPlayerTurn || isProcessing || !!winner}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Player Board */}
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="glass p-6 rounded-2xl"
+                >
+                  <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-blue-400">
+                    Player Board
+                  </h2>
+                  <BingoLetters 
+                    completedLines={playerScore} 
+                    isWinner={winner === 'Player'}
+                    playerName="Player"
                   />
-                </div>
-                {!winner && (
-                  <div className="mt-3 text-center">
-                    <span className={`px-4 py-2 rounded-lg font-semibold ${
-                      isPlayerTurn && !isProcessing
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-gray-100 text-gray-500'
-                    }`}>
-                      {isPlayerTurn && !isProcessing ? '✓ Your Turn' : isProcessing ? '⏳ CPU\'s Turn...' : '⏳ Waiting...'}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* CPU Board - Only show when game ends */}
-              <div>
-                <h2 className="text-2xl font-bold text-center mb-4 text-red-600">
-                  CPU Board
-                </h2>
-                {winner ? (
-                  <>
-                    <BingoLetters 
-                      completedLines={cpuScore} 
-                      isWinner={winner === 'CPU'}
-                      playerName="CPU"
+                  <div className="mt-6">
+                    <GameBoard 
+                      board={playerBoard} 
+                      onCellClick={handlePlayerBoardClick}
+                      disabled={!isPlayerTurn || isProcessing || !!winner}
                     />
-                    <div className="mt-4">
-                      <GameBoard 
-                        board={cpuBoard} 
-                        onCellClick={() => {}} 
-                        disabled={true}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex items-center justify-center h-full">
-                    <div className="text-center p-8 bg-gray-100 rounded-xl">
-                      <div className="text-6xl mb-4">🎭</div>
-                      <p className="text-xl font-bold text-gray-700">Hidden</p>
-                      <p className="text-sm text-gray-500 mt-2">CPU board will be revealed<br/>when the game ends</p>
-                    </div>
                   </div>
-                )}
-              </div>
-            </div>
+                  {!winner && (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                      className="mt-4 text-center"
+                    >
+                      <span className={`px-6 py-3 rounded-xl font-bold text-lg transition-all duration-300 ${
+                        isPlayerTurn && !isProcessing
+                          ? 'glass-strong text-green-400 glow-blue'
+                          : 'glass text-gray-500'
+                      }`}>
+                        {isPlayerTurn && !isProcessing ? '✓ Your Turn' : isProcessing ? '⏳ CPU\'s Turn...' : '⏳ Waiting...'}
+                      </span>
+                    </motion.div>
+                  )}
+                </motion.div>
 
-            <GameControls 
-              onPlayAgain={playAgain}
-              showPlayAgain={true}
-              isProcessing={isProcessing}
-              gameEnded={!!winner}
-            />
-          </>
-        )}
+                {/* CPU Board - Only show when game ends */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="glass p-6 rounded-2xl"
+                >
+                  <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-pink-400">
+                    CPU Board
+                  </h2>
+                  {winner ? (
+                    <>
+                      <BingoLetters 
+                        completedLines={cpuScore} 
+                        isWinner={winner === 'CPU'}
+                        playerName="CPU"
+                      />
+                      <div className="mt-6">
+                        <GameBoard 
+                          board={cpuBoard} 
+                          onCellClick={() => {}} 
+                          disabled={true}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-center h-full min-h-[400px]">
+                      <motion.div 
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-center p-8 glass-strong rounded-2xl"
+                      >
+                        <motion.div 
+                          animate={{ rotate: [0, 10, -10, 0] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                          className="text-7xl mb-6"
+                        >
+                          🎭
+                        </motion.div>
+                        <p className="text-2xl font-bold text-gray-300 mb-3">Hidden</p>
+                        <p className="text-sm text-gray-500">CPU board will be revealed<br/>when the game ends</p>
+                      </motion.div>
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+
+              <GameControls 
+                onPlayAgain={playAgain}
+                showPlayAgain={true}
+                isProcessing={isProcessing}
+                gameEnded={!!winner}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Word Bingo Mode */}
-        {gameMode === 'word' && wordBoard && (
-          <>
-            {/* Back to Menu Button */}
-            <div className="mb-4 flex justify-between items-center">
-              <button
-                onClick={() => setGameMode(null)}
-                className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors"
+        <AnimatePresence mode="wait">
+          {gameMode === 'word' && wordBoard && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Back to Menu Button */}
+              <div className="mb-6 flex justify-between items-center">
+                <motion.button
+                  whileHover={{ scale: 1.05, x: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setGameMode(null)}
+                  className="px-6 py-3 glass-strong text-white font-semibold rounded-xl hover:glow-pink transition-all duration-300"
+                >
+                  ← Back to Menu
+                </motion.button>
+                <motion.h2 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
+                >
+                  Word Bingo Mode
+                </motion.h2>
+                <div className="w-24 sm:w-32"></div>
+              </div>
+
+              {/* Current Hint Section */}
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8 p-8 glass-strong rounded-2xl relative overflow-hidden group"
               >
-                ← Back to Menu
-              </button>
-              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-                Word Bingo Mode
-              </h2>
-              <div className="w-32"></div>
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <motion.h2 
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                  className="text-xl sm:text-2xl font-bold text-yellow-400 mb-3 text-center relative z-10"
+                >
+                  🔍 Current Hint
+                </motion.h2>
+                <p className="text-2xl sm:text-3xl font-semibold text-white text-center mb-3 relative z-10">
+                  {currentHint || 'Loading...'}
+                </p>
+                <p className="text-sm text-gray-400 text-center relative z-10">
+                  Click the fruit that matches this description!
+                </p>
+              </motion.div>
 
-            {/* Current Hint Section */}
-            <div className="mb-6 p-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl shadow-lg">
-              <h2 className="text-xl font-bold text-gray-800 mb-2 text-center">
-                🔍 Current Hint
-              </h2>
-              <p className="text-2xl font-semibold text-gray-900 text-center">
-                {currentHint || 'Loading...'}
-              </p>
-              <p className="text-sm text-gray-700 text-center mt-2">
-                Click the fruit that matches this description!
-              </p>
-            </div>
+              {/* Word Board */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mb-8"
+              >
+                <div className="grid grid-cols-5 gap-3 max-w-3xl mx-auto p-4">
+                  {wordBoard.map((row, rowIndex) =>
+                    row.map((cell, colIndex) => {
+                      const index = rowIndex * 5 + colIndex;
+                      return (
+                        <motion.button
+                          key={`${rowIndex}-${colIndex}`}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ 
+                            delay: index * 0.02,
+                            duration: 0.3
+                          }}
+                          whileHover={
+                            !winner && !cell.isCrossed
+                              ? { scale: 1.1, rotate: [0, -2, 2, 0] }
+                              : {}
+                          }
+                          whileTap={!winner && !cell.isCrossed ? { scale: 0.95 } : {}}
+                          onClick={() => handleWordBoardClick(rowIndex, colIndex)}
+                          disabled={winner || cell.isCrossed}
+                          className={`
+                            relative aspect-square flex items-center justify-center
+                            text-xs sm:text-sm font-bold rounded-xl p-2
+                            transition-all duration-300 overflow-hidden group
+                            ${
+                              !winner && !cell.isCrossed
+                                ? 'glass-strong cursor-pointer hover:glow-blue'
+                                : 'glass cursor-default'
+                            }
+                            ${
+                              cell.isCrossed
+                                ? 'text-green-400 border-green-500/50'
+                                : 'text-white'
+                            }
+                          `}
+                        >
+                          {!cell.isCrossed && !winner && (
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          )}
+                          {!cell.isCrossed && !winner && (
+                            <div className="absolute inset-0 shimmer"></div>
+                          )}
+                          <span className={`relative z-10 ${cell.isCrossed ? 'line-through' : ''}`}>
+                            {cell.value}
+                          </span>
+                          {cell.isCrossed && (
+                            <motion.div
+                              initial={{ scale: 0, rotate: -180 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              transition={{ type: "spring", duration: 0.5 }}
+                              className="absolute inset-0 flex items-center justify-center"
+                            >
+                              <span className="text-3xl sm:text-4xl">✓</span>
+                            </motion.div>
+                          )}
+                        </motion.button>
+                      );
+                    })
+                  )}
+                </div>
+              </motion.div>
 
-            {/* Word Board */}
-            <div className="mb-6">
-              <div className="grid grid-cols-5 gap-2 max-w-2xl mx-auto">
-                {wordBoard.map((row, rowIndex) =>
-                  row.map((cell, colIndex) => (
-                    <button
-                      key={`${rowIndex}-${colIndex}`}
-                      onClick={() => handleWordBoardClick(rowIndex, colIndex)}
-                      disabled={winner || cell.isCrossed}
-                      className={`
-                        aspect-square flex items-center justify-center
-                        text-sm font-bold rounded-lg p-2
-                        transition-all duration-200 transform
-                        ${
-                          !winner && !cell.isCrossed
-                            ? 'hover:scale-105 active:scale-95 cursor-pointer'
-                            : 'cursor-default'
-                        }
-                        ${
-                          cell.isCrossed
-                            ? 'bg-green-500 text-white line-through opacity-60'
-                            : 'bg-blue-500 text-white hover:bg-blue-600'
-                        }
-                      `}
-                    >
-                      {cell.value}
-                    </button>
-                  ))
-                )}
-              </div>
-            </div>
+              {/* Win Message and Controls */}
+              {winner && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", duration: 0.5 }}
+                  className="mb-6 p-6 glass-strong text-white font-bold text-2xl rounded-2xl text-center glow-purple"
+                >
+                  <motion.span
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ repeat: Infinity, duration: 1 }}
+                  >
+                    🎉 Congratulations! You completed the board! 🎉
+                  </motion.span>
+                </motion.div>
+              )}
 
-            {/* Win Message and Controls */}
-            {winner && (
-              <div className="mb-4 p-4 bg-green-500 text-white font-bold text-2xl rounded-lg text-center animate-bounce">
-                🎉 Congratulations! You completed the board! 🎉
-              </div>
-            )}
-
-            <GameControls onPlayAgain={playAgain} showPlayAgain={true} />
-          </>
-        )}
-      </div>
+              <GameControls onPlayAgain={playAgain} showPlayAgain={true} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }
