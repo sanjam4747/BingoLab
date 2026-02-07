@@ -33,14 +33,19 @@ function GameBoard({ board, onCellClick, disabled = false }) {
                   min-h-[44px] min-w-[44px]
                   ${!disabled && !cell.isCrossed ? 'cursor-pointer' : 'cursor-default'}
                   ${cell.isCrossed
-                    ? 'glass text-green-400 border-green-500/50'
+                    ? 'glass text-green-400 border-2 border-green-500/60 bg-green-500/10'
                     : 'glass-strong text-white hover:glow-purple'
                   }
                 `}
               >
+                {/* Green background for selected cells */}
+                {cell.isCrossed && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg sm:rounded-xl"></div>
+                )}
+
                 {/* Gradient background on hover */}
                 {!cell.isCrossed && !disabled && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                 )}
 
                 {/* Cell value */}

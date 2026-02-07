@@ -4,8 +4,10 @@ import GameBoard from './components/GameBoard';
 import GameControls from './components/GameControls';
 import BingoLetters from './components/BingoLetters';
 import MainMenu from './components/MainMenu';
+import LandingPage from './components/LandingPage';
 
 function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [gameMode, setGameMode] = useState(null); // null, 'fun', or 'word'
   const [playerBoard, setPlayerBoard] = useState(null);
   const [cpuBoard, setCpuBoard] = useState(null);
@@ -359,6 +361,15 @@ function App() {
     setTargetFruit(null);
   };
 
+  // Show landing page first
+  if (showLanding) {
+    return (
+      <div className="min-h-screen mesh-gradient-animated">
+        <LandingPage onStartGame={() => setShowLanding(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen mesh-gradient flex items-center justify-center p-2 sm:p-4 md:p-8">
       <motion.div 
@@ -367,11 +378,26 @@ function App() {
         transition={{ duration: 0.5 }}
         className="glass-card rounded-2xl sm:rounded-3xl shadow-2xl p-3 sm:p-6 md:p-10 max-w-7xl w-full"
       >
+        {/* Back to Landing Button */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileHover={{ scale: 1.05, x: -5 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            setShowLanding(true);
+            setGameMode(null);
+          }}
+          className="mb-4 px-4 py-2 glass-strong text-white text-sm font-semibold rounded-lg hover:glow-purple transition-all duration-300"
+        >
+          ← Back to Home
+        </motion.button>
+
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent"
         >
           🎯 5x5 Bingo Game
         </motion.h1>
@@ -405,7 +431,7 @@ function App() {
                 <motion.h2 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent"
                 >
                   Fun Bingo Mode
                 </motion.h2>
@@ -420,7 +446,7 @@ function App() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="glass p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl"
                 >
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-blue-400">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-gray-300">
                     Player Board
                   </h2>
                   <BingoLetters 
@@ -460,7 +486,7 @@ function App() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="glass p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl"
                 >
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-pink-400">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-gray-300">
                     CPU Board
                   </h2>
                   {winner ? (
@@ -533,7 +559,7 @@ function App() {
                 <motion.h2 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent"
                 >
                   Word Bingo Mode
                 </motion.h2>
@@ -547,11 +573,11 @@ function App() {
                 transition={{ duration: 0.5 }}
                 className="mb-4 sm:mb-6 md:mb-8 p-4 sm:p-6 md:p-8 glass-strong rounded-xl sm:rounded-2xl relative overflow-hidden group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-600/5 to-gray-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <motion.h2 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400 mb-2 sm:mb-3 text-center relative z-10"
+                  className="text-lg sm:text-xl md:text-2xl font-bold text-gray-300 mb-2 sm:mb-3 text-center relative z-10"
                 >
                   🔍 Current Hint
                 </motion.h2>
@@ -602,13 +628,18 @@ function App() {
                             }
                             ${
                               cell.isCrossed
-                                ? 'text-green-400 border-green-500/50'
+                                ? 'text-green-400 border-2 border-green-500/60 bg-green-500/10'
                                 : 'text-white'
                             }
                           `}
                         >
+                          {/* Green background for selected cells */}
+                          {cell.isCrossed && (
+                            <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg sm:rounded-xl"></div>
+                          )}
+
                           {!cell.isCrossed && !winner && (
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-gray-600/10 via-gray-500/10 to-gray-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           )}
                           {!cell.isCrossed && !winner && (
                             <div className="absolute inset-0 shimmer"></div>

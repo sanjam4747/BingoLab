@@ -23,7 +23,7 @@ function GameControls({ onPlayAgain, onCpuTurn, showCpuButton = false, showPlayA
           `}
         >
           {!isProcessing && !gameEnded && (
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           )}
           <span className="relative z-10">
             {isProcessing ? '⏳ CPU Thinking...' : gameEnded ? '🏁 Game Over' : '🤖 CPU Turn'}
@@ -44,7 +44,7 @@ function GameControls({ onPlayAgain, onCpuTurn, showCpuButton = false, showPlayA
             transition-all duration-300 overflow-hidden group w-full sm:w-auto
           "
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <span className="relative z-10 flex items-center justify-center gap-2">
             <span className="text-lg sm:text-xl">🔄</span>
             <span>Play Again</span>

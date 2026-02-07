@@ -24,13 +24,13 @@ function BingoLetters({ completedLines, isWinner, playerName }) {
               text-xl sm:text-2xl md:text-3xl font-bold rounded-lg sm:rounded-xl
               transition-all duration-500
               ${index < completedLines
-                ? 'glass-strong text-yellow-300 glow-purple'
+                ? 'glass-strong text-gray-200 glow-purple'
                 : 'glass text-gray-500'
               }
             `}
           >
             {index < completedLines && (
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/30 to-orange-500/30 rounded-xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-500/20 to-gray-600/20 rounded-xl" />
             )}
             <span className="relative z-10">{letter}</span>
           </motion.div>

@@ -13,13 +13,18 @@ function MainMenu({ currentMode, onModeChange }) {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8"
       >
-        Select Game Mode
+        <span className="bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent">
+          Select Game Mode
+        </span>
       </motion.h2>
+      <p className="text-center text-gray-400 mb-8 text-sm sm:text-base max-w-md mx-auto">
+        Choose your adventure and dive into the world of Bingo
+      </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 px-2">
         <motion.button
-          whileHover={{ scale: 1.05, y: -5 }}
+          whileHover={{ scale: 1.05, y: -5, boxShadow: "0 10px 30px rgba(107, 114, 128, 0.2)" }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -29,27 +34,33 @@ function MainMenu({ currentMode, onModeChange }) {
             relative px-6 py-4 sm:px-8 sm:py-5 md:px-10 md:py-6 font-bold rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl
             transition-all duration-300 overflow-hidden group w-full sm:w-auto
             ${currentMode === 'fun'
-              ? 'glass-strong text-white glow-blue'
-              : 'glass text-gray-300 hover:glass-strong'
+              ? 'glass-strong text-white glow-blue border-2 border-gray-600'
+              : 'glass text-gray-300 hover:glass-strong border-2 border-transparent hover:border-gray-700'
             }
           `}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-700/20 via-gray-600/20 to-gray-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <span className="relative flex items-center justify-center gap-2 sm:gap-3">
-            <span className="text-2xl sm:text-3xl">🎮</span>
+            <motion.span 
+              className="text-2xl sm:text-3xl"
+              animate={{ rotate: currentMode === 'fun' ? [0, -10, 10, 0] : 0 }}
+              transition={{ duration: 0.5, repeat: currentMode === 'fun' ? Infinity : 0, repeatDelay: 2 }}
+            >
+              🎮
+            </motion.span>
             <span>Fun Bingo</span>
           </span>
           {currentMode === 'fun' && (
             <motion.div
               layoutId="activeMode"
-              className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-2xl"
+              className="absolute inset-0 bg-gradient-to-br from-gray-600/30 to-gray-700/30 rounded-xl sm:rounded-2xl"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}
         </motion.button>
         
         <motion.button
-          whileHover={{ scale: 1.05, y: -5 }}
+          whileHover={{ scale: 1.05, y: -5, boxShadow: "0 10px 30px rgba(107, 114, 128, 0.2)" }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -59,20 +70,26 @@ function MainMenu({ currentMode, onModeChange }) {
             relative px-6 py-4 sm:px-8 sm:py-5 md:px-10 md:py-6 font-bold rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl
             transition-all duration-300 overflow-hidden group w-full sm:w-auto
             ${currentMode === 'word'
-              ? 'glass-strong text-white glow-pink'
-              : 'glass text-gray-300 hover:glass-strong'
+              ? 'glass-strong text-white glow-pink border-2 border-gray-600'
+              : 'glass text-gray-300 hover:glass-strong border-2 border-transparent hover:border-gray-700'
             }
           `}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-600/20 via-gray-500/20 to-gray-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <span className="relative flex items-center justify-center gap-2 sm:gap-3">
-            <span className="text-2xl sm:text-3xl">🍎</span>
+            <motion.span 
+              className="text-2xl sm:text-3xl"
+              animate={{ rotate: currentMode === 'word' ? [0, -10, 10, 0] : 0 }}
+              transition={{ duration: 0.5, repeat: currentMode === 'word' ? Infinity : 0, repeatDelay: 2 }}
+            >
+              🍎
+            </motion.span>
             <span>Word Bingo</span>
           </span>
           {currentMode === 'word' && (
             <motion.div
               layoutId="activeMode"
-              className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-orange-500/30 rounded-2xl"
+              className="absolute inset-0 bg-gradient-to-br from-gray-500/30 to-gray-600/30 rounded-xl sm:rounded-2xl"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}
