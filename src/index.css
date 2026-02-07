@@ -122,3 +122,66 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(168, 85, 247, 0.7);
 }
+
+/* Mobile Optimizations */
+@layer utilities {
+  /* Better touch targets for mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent text selection on interactive elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Smooth scrolling for mobile */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal overflow on mobile */
+  .prevent-overflow {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  /* Reduce animations on mobile for better performance */
+  * {
+    animation-duration: 0.5s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Optimize backdrop blur for mobile */
+  .glass,
+  .glass-strong,
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Reduce glow effects on mobile */
+  .glow-purple,
+  .glow-blue,
+  .glow-pink {
+    box-shadow: 
+      0 0 10px rgba(168, 85, 247, 0.3),
+      0 0 20px rgba(168, 85, 247, 0.2);
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  /* Further reduce font sizes on very small screens */
+  body {
+    font-size: 14px;
+  }
+}

@@ -18,33 +18,33 @@ function App() {
   const [targetFruit, setTargetFruit] = useState(null);
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
 
-  // Fruits data with descriptions
+  // Fruits data with child-friendly descriptions
   const fruitsData = [
-    { name: 'Apple', description: 'A round red or green fruit with a crisp texture' },
-    { name: 'Banana', description: 'A long yellow fruit with a soft sweet flesh' },
-    { name: 'Orange', description: 'A citrus fruit with a bright orange peel' },
-    { name: 'Grape', description: 'Small round fruits that grow in clusters' },
-    { name: 'Mango', description: 'A tropical fruit with sweet orange flesh' },
-    { name: 'Strawberry', description: 'A red berry with tiny seeds on the outside' },
-    { name: 'Pineapple', description: 'A spiky tropical fruit with yellow flesh' },
-    { name: 'Watermelon', description: 'A large green fruit with red watery flesh' },
-    { name: 'Blueberry', description: 'Tiny round blue berries full of antioxidants' },
-    { name: 'Kiwi', description: 'A brown fuzzy fruit with bright green flesh inside' },
-    { name: 'Peach', description: 'A fuzzy orange fruit with a large pit' },
-    { name: 'Pear', description: 'A green or yellow fruit shaped like a teardrop' },
-    { name: 'Cherry', description: 'A small round red fruit with a pit' },
-    { name: 'Lemon', description: 'A sour yellow citrus fruit' },
-    { name: 'Lime', description: 'A small green citrus fruit' },
-    { name: 'Plum', description: 'A purple or red fruit with smooth skin' },
-    { name: 'Raspberry', description: 'A red berry made of many tiny segments' },
-    { name: 'Apricot', description: 'A small orange fruit similar to a peach' },
-    { name: 'Coconut', description: 'A brown hairy fruit with white flesh and milk' },
-    { name: 'Papaya', description: 'An orange tropical fruit with black seeds' },
-    { name: 'Pomegranate', description: 'A red fruit filled with juicy seeds' },
-    { name: 'Avocado', description: 'A green fruit with creamy flesh and a large pit' },
-    { name: 'Cantaloupe', description: 'A melon with orange flesh and netted skin' },
-    { name: 'Blackberry', description: 'A dark purple berry with a sweet-tart flavor' },
-    { name: 'Dragon Fruit', description: 'A pink fruit with white flesh and black seeds' }
+    { name: 'Apple', description: 'A crunchy red or green fruit that keeps the doctor away!' },
+    { name: 'Banana', description: 'A long yellow fruit that monkeys love to eat' },
+    { name: 'Orange', description: 'A round orange fruit that you peel before eating' },
+    { name: 'Grape', description: 'Tiny purple or green balls that grow in bunches' },
+    { name: 'Strawberry', description: 'A sweet red heart-shaped fruit with seeds outside' },
+    { name: 'Watermelon', description: 'A huge green fruit that is pink and juicy inside' },
+    { name: 'Blueberry', description: 'Little round blue fruits that are super tiny' },
+    { name: 'Cherry', description: 'Small shiny red fruit that grows on trees' },
+    { name: 'Peach', description: 'A soft orange fuzzy fruit with a big seed inside' },
+    { name: 'Pear', description: 'Like an apple but shaped like a bell or teardrop' },
+    { name: 'Pineapple', description: 'A big spiky yellow fruit that looks like a crown' },
+    { name: 'Mango', description: 'A sweet tropical fruit that is orange inside' },
+    { name: 'Kiwi', description: 'A small brown fuzzy fruit that is bright green inside' },
+    { name: 'Lemon', description: 'A sour yellow fruit used to make lemonade' },
+    { name: 'Raspberry', description: 'A tiny red bumpy berry that looks like a little hat' },
+    { name: 'Coconut', description: 'A hard brown ball with white inside and yummy milk' },
+    { name: 'Plum', description: 'A smooth purple fruit that is juicy and sweet' },
+    { name: 'Tangerine', description: 'A small orange that is easy to peel' },
+    { name: 'Melon', description: 'A big round fruit with green skin and sweet inside' },
+    { name: 'Blackberry', description: 'A dark purple berry that grows on bushes' },
+    { name: 'Lime', description: 'A small green fruit that tastes sour like lemon' },
+    { name: 'Apricot', description: 'A small orange fruit that looks like a tiny peach' },
+    { name: 'Tomato', description: 'A red round fruit often used like a vegetable' },
+    { name: 'Avocado', description: 'A green fruit that is creamy and used to make guacamole' },
+    { name: 'Fig', description: 'A soft purple or green fruit that is sweet inside' }
   ];
 
   // Generate a random 5x5 board with numbers from 1-75
@@ -360,18 +360,18 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen mesh-gradient flex items-center justify-center p-4 sm:p-8">
+    <div className="min-h-screen mesh-gradient flex items-center justify-center p-2 sm:p-4 md:p-8">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="glass-card rounded-3xl shadow-2xl p-6 sm:p-10 max-w-7xl w-full"
+        className="glass-card rounded-2xl sm:rounded-3xl shadow-2xl p-3 sm:p-6 md:p-10 max-w-7xl w-full"
       >
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl sm:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
         >
           🎯 5x5 Bingo Game
         </motion.h1>
@@ -393,34 +393,34 @@ function App() {
               transition={{ duration: 0.3 }}
             >
               {/* Back to Menu Button */}
-              <div className="mb-6 flex justify-between items-center">
+              <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
                 <motion.button
                   whileHover={{ scale: 1.05, x: -5 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setGameMode(null)}
-                  className="px-6 py-3 glass-strong text-white font-semibold rounded-xl hover:glow-purple transition-all duration-300"
+                  className="px-4 py-2 sm:px-6 sm:py-3 glass-strong text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl hover:glow-purple transition-all duration-300 w-full sm:w-auto"
                 >
                   ← Back to Menu
                 </motion.button>
                 <motion.h2 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
                 >
                   Fun Bingo Mode
                 </motion.h2>
-                <div className="w-24 sm:w-32"></div>
+                <div className="hidden sm:block sm:w-24 md:w-32"></div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
                 {/* Player Board */}
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="glass p-6 rounded-2xl"
+                  className="glass p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl"
                 >
-                  <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-blue-400">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-blue-400">
                     Player Board
                   </h2>
                   <BingoLetters 
@@ -442,7 +442,7 @@ function App() {
                       transition={{ delay: 0.5 }}
                       className="mt-4 text-center"
                     >
-                      <span className={`px-6 py-3 rounded-xl font-bold text-lg transition-all duration-300 ${
+                      <span className={`px-3 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all duration-300 ${
                         isPlayerTurn && !isProcessing
                           ? 'glass-strong text-green-400 glow-blue'
                           : 'glass text-gray-500'
@@ -458,9 +458,9 @@ function App() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="glass p-6 rounded-2xl"
+                  className="glass p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl"
                 >
-                  <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-pink-400">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 sm:mb-6 text-pink-400">
                     CPU Board
                   </h2>
                   {winner ? (
@@ -479,22 +479,22 @@ function App() {
                       </div>
                     </>
                   ) : (
-                    <div className="flex items-center justify-center h-full min-h-[400px]">
+                    <div className="flex items-center justify-center h-full min-h-[250px] sm:min-h-[350px] md:min-h-[400px]">
                       <motion.div 
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="text-center p-8 glass-strong rounded-2xl"
+                        className="text-center p-4 sm:p-6 md:p-8 glass-strong rounded-xl sm:rounded-2xl"
                       >
                         <motion.div 
                           animate={{ rotate: [0, 10, -10, 0] }}
                           transition={{ repeat: Infinity, duration: 2 }}
-                          className="text-7xl mb-6"
+                          className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-6"
                         >
                           🎭
                         </motion.div>
-                        <p className="text-2xl font-bold text-gray-300 mb-3">Hidden</p>
-                        <p className="text-sm text-gray-500">CPU board will be revealed<br/>when the game ends</p>
+                        <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-300 mb-2 sm:mb-3">Hidden</p>
+                        <p className="text-xs sm:text-sm text-gray-500">CPU board will be revealed<br/>when the game ends</p>
                       </motion.div>
                     </div>
                   )}
@@ -521,23 +521,23 @@ function App() {
               transition={{ duration: 0.3 }}
             >
               {/* Back to Menu Button */}
-              <div className="mb-6 flex justify-between items-center">
+              <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
                 <motion.button
                   whileHover={{ scale: 1.05, x: -5 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setGameMode(null)}
-                  className="px-6 py-3 glass-strong text-white font-semibold rounded-xl hover:glow-pink transition-all duration-300"
+                  className="px-4 py-2 sm:px-6 sm:py-3 glass-strong text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl hover:glow-pink transition-all duration-300 w-full sm:w-auto"
                 >
                   ← Back to Menu
                 </motion.button>
                 <motion.h2 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent"
                 >
                   Word Bingo Mode
                 </motion.h2>
-                <div className="w-24 sm:w-32"></div>
+                <div className="hidden sm:block sm:w-24 md:w-32"></div>
               </div>
 
               {/* Current Hint Section */}
@@ -545,20 +545,20 @@ function App() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="mb-8 p-8 glass-strong rounded-2xl relative overflow-hidden group"
+                className="mb-4 sm:mb-6 md:mb-8 p-4 sm:p-6 md:p-8 glass-strong rounded-xl sm:rounded-2xl relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <motion.h2 
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  className="text-xl sm:text-2xl font-bold text-yellow-400 mb-3 text-center relative z-10"
+                  className="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400 mb-2 sm:mb-3 text-center relative z-10"
                 >
                   🔍 Current Hint
                 </motion.h2>
-                <p className="text-2xl sm:text-3xl font-semibold text-white text-center mb-3 relative z-10">
+                <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold text-white text-center mb-2 sm:mb-3 relative z-10 px-2">
                   {currentHint || 'Loading...'}
                 </p>
-                <p className="text-sm text-gray-400 text-center relative z-10">
+                <p className="text-xs sm:text-sm text-gray-400 text-center relative z-10">
                   Click the fruit that matches this description!
                 </p>
               </motion.div>
@@ -568,9 +568,9 @@ function App() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="mb-8"
+                className="mb-6 sm:mb-8"
               >
-                <div className="grid grid-cols-5 gap-3 max-w-3xl mx-auto p-4">
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 max-w-3xl mx-auto p-2 sm:p-3 md:p-4">
                   {wordBoard.map((row, rowIndex) =>
                     row.map((cell, colIndex) => {
                       const index = rowIndex * 5 + colIndex;
@@ -593,7 +593,7 @@ function App() {
                           disabled={winner || cell.isCrossed}
                           className={`
                             relative aspect-square flex items-center justify-center
-                            text-xs sm:text-sm font-bold rounded-xl p-2
+                            text-[0.6rem] xs:text-xs sm:text-sm md:text-base font-bold rounded-lg sm:rounded-xl p-1 sm:p-2
                             transition-all duration-300 overflow-hidden group
                             ${
                               !winner && !cell.isCrossed
@@ -623,7 +623,7 @@ function App() {
                               transition={{ type: "spring", duration: 0.5 }}
                               className="absolute inset-0 flex items-center justify-center"
                             >
-                              <span className="text-3xl sm:text-4xl">✓</span>
+                              <span className="text-2xl sm:text-3xl md:text-4xl">✓</span>
                             </motion.div>
                           )}
                         </motion.button>
@@ -639,7 +639,7 @@ function App() {
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: "spring", duration: 0.5 }}
-                  className="mb-6 p-6 glass-strong text-white font-bold text-2xl rounded-2xl text-center glow-purple"
+                  className="mb-4 sm:mb-6 p-4 sm:p-6 glass-strong text-white font-bold text-base sm:text-xl md:text-2xl rounded-xl sm:rounded-2xl text-center glow-purple"
                 >
                   <motion.span
                     animate={{ scale: [1, 1.1, 1] }}

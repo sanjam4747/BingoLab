@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 function GameBoard({ board, onCellClick, disabled = false }) {
   return (
-    <div className="mb-6">
-      <div className="grid grid-cols-5 gap-3 max-w-lg mx-auto p-4">
+    <div className="mb-4 sm:mb-6">
+      <div className="grid grid-cols-5 gap-1.5 sm:gap-2 md:gap-3 max-w-lg mx-auto p-2 sm:p-3 md:p-4">
         {board.map((row, rowIndex) =>
           row.map((cell, colIndex) => {
             const index = rowIndex * 5 + colIndex;
@@ -28,8 +28,9 @@ function GameBoard({ board, onCellClick, disabled = false }) {
                 disabled={disabled}
                 className={`
                   relative aspect-square flex items-center justify-center
-                  text-xl sm:text-2xl font-bold rounded-xl
+                  text-base sm:text-xl md:text-2xl font-bold rounded-lg sm:rounded-xl
                   transition-all duration-300 overflow-hidden group
+                  min-h-[44px] min-w-[44px]
                   ${!disabled && !cell.isCrossed ? 'cursor-pointer' : 'cursor-default'}
                   ${cell.isCrossed
                     ? 'glass text-green-400 border-green-500/50'
@@ -55,7 +56,7 @@ function GameBoard({ board, onCellClick, disabled = false }) {
                     transition={{ type: "spring", stiffness: 200, damping: 15 }}
                     className="absolute inset-0 flex items-center justify-center"
                   >
-                    <span className="text-4xl">✓</span>
+                    <span className="text-2xl sm:text-3xl md:text-4xl">✓</span>
                   </motion.div>
                 )}
               </motion.button>

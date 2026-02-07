@@ -6,7 +6,7 @@ function BingoLetters({ completedLines, isWinner, playerName }) {
   
   return (
     <div className="flex flex-col items-center">
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-1.5 sm:gap-2 md:gap-3 mb-3 sm:mb-4">
         {letters.map((letter, index) => (
           <motion.div
             key={letter}
@@ -20,8 +20,8 @@ function BingoLetters({ completedLines, isWinner, playerName }) {
               duration: 0.5
             }}
             className={`
-              relative w-14 h-14 flex items-center justify-center
-              text-3xl font-bold rounded-xl
+              relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center
+              text-xl sm:text-2xl md:text-3xl font-bold rounded-lg sm:rounded-xl
               transition-all duration-500
               ${index < completedLines
                 ? 'glass-strong text-yellow-300 glow-purple'
@@ -40,7 +40,7 @@ function BingoLetters({ completedLines, isWinner, playerName }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-sm font-semibold text-gray-400 mb-2"
+        className="text-xs sm:text-sm font-semibold text-gray-400 mb-2"
       >
         {completedLines} {completedLines === 1 ? 'line' : 'lines'} completed
       </motion.div>
@@ -55,7 +55,7 @@ function BingoLetters({ completedLines, isWinner, playerName }) {
             scale: { repeat: Infinity, duration: 1 },
             rotate: { duration: 0.5 }
           }}
-          className="mt-3 px-6 py-3 glass-strong text-white font-bold rounded-xl glow-purple"
+          className="mt-2 sm:mt-3 px-3 py-2 sm:px-6 sm:py-3 glass-strong text-white text-sm sm:text-base font-bold rounded-lg sm:rounded-xl glow-purple"
         >
           <motion.span
             animate={{ scale: [1, 1.2, 1] }}
